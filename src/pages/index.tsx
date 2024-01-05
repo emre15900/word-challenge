@@ -1,9 +1,13 @@
 import React from "react";
 import OtpInput from "react-otp-input";
 import { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function HomePage() {
   const [otp, setOtp] = useState("");
+  const notify = () =>
+    toast("Congratulations correct answer!", { type: "success", position: "bottom-center" });
 
   const [buttonStyle, setButtonStyle] = useState({
     borderRadius: "50px",
@@ -93,9 +97,11 @@ function HomePage() {
             style={buttonStyle}
             onMouseOver={handleHover}
             onMouseLeave={handleMouseLeave}
+            onClick={notify}
           >
             Verify
           </button>
+          <ToastContainer />
         </div>
       </div>
     </div>
