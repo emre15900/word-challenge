@@ -86,7 +86,7 @@ function HomePage() {
       {words.map((word) => {
         return (
           <div
-          key={word.id}
+            key={word.id}
             style={{
               width: "100%",
               display: "flex",
