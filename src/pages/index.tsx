@@ -3,11 +3,16 @@ import OtpInput from "react-otp-input";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import styles from "../styles/global.module.css";
 
 function HomePage() {
   const [otp, setOtp] = useState("");
+
   const notify = () =>
-    toast("Congratulations correct answer!", { type: "success", position: "bottom-center" });
+    toast("Congratulations correct answer!", {
+      type: "success",
+      position: "bottom-center",
+    });
 
   const [buttonStyle, setButtonStyle] = useState({
     borderRadius: "50px",
@@ -40,7 +45,7 @@ function HomePage() {
   };
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <h1
         style={{ textAlign: "center", marginTop: "40px", marginBottom: "30px" }}
       >
@@ -57,7 +62,7 @@ function HomePage() {
           gap: 10,
         }}
       >
-        <div style={{ width: 400 }}>
+        <div style={{ width: 350 }}>
           <img
             src="https://media.istockphoto.com/id/1001374706/tr/vekt%C3%B6r/vekt%C3%B6r-%C5%9Fablonu-logo-o-harfi-%C3%A7izgili-tema-yarat%C4%B1c%C4%B1-minimalizm-logo-sembol-simge-amblemi.jpg?s=1024x1024&w=is&k=20&c=VlcJ2_OBq5V6tX1ixPot69J00ymFOCe5BwMJXNrPL-0="
             alt="word-img"
@@ -72,7 +77,7 @@ function HomePage() {
         <div>
           <h1>Accident</h1>
         </div>
-        <div>
+        <div className={styles.otpInput}>
           <OtpInput
             value={otp}
             onChange={setOtp}
@@ -102,6 +107,11 @@ function HomePage() {
             Verify
           </button>
           <ToastContainer />
+        </div>
+        <div>
+          <p style={{ fontWeight: 500 }}>
+            <strong>1</strong> / 100
+          </p>
         </div>
       </div>
     </div>
