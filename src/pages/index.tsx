@@ -12,6 +12,7 @@ function HomePage() {
     toast("Congratulations correct answer!", {
       type: "success",
       position: "bottom-center",
+      autoClose: 1500,
     });
 
   const [buttonStyle, setButtonStyle] = useState({
@@ -47,7 +48,7 @@ function HomePage() {
   return (
     <div style={{ width: "100%" }}>
       <h1
-        style={{ textAlign: "center", marginTop: "40px", marginBottom: "30px" }}
+        style={{ textAlign: "center", marginTop: "30px", marginBottom: "20px" }}
       >
         Word Challenge
       </h1>
@@ -68,7 +69,7 @@ function HomePage() {
             alt="word-img"
             style={{
               borderRadius: "30px",
-              marginTop: "40px",
+              marginTop: "30px",
               boxShadow: "0 0 10px 0 #000000",
               width: "100%",
             }}
