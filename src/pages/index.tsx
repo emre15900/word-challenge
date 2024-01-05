@@ -36,12 +36,14 @@ const words: readonly Word[] = [
 function HomePage() {
   const [otp, setOtp] = useState("");
 
-  const notify = () =>
+  const notify = () => {
     toast("Congratulations correct answer!", {
       type: "success",
       position: "bottom-center",
       autoClose: 1500,
     });
+    console.log(otp);
+  };
 
   const [buttonStyle, setButtonStyle] = useState({
     borderRadius: "50px",
@@ -84,6 +86,7 @@ function HomePage() {
       {words.map((word) => {
         return (
           <div
+          key={word.id}
             style={{
               width: "100%",
               display: "flex",
