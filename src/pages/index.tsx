@@ -137,7 +137,7 @@ function HomePage() {
             renderSeparator={<span>-</span>}
             renderInput={(props) => <input {...props} />}
             inputType="text"
-            // shouldAutoFocus
+            shouldAutoFocus
             inputStyle={{
               width: "50px",
               height: "50px",
