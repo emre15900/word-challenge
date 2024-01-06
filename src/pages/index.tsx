@@ -61,6 +61,8 @@ function HomePage() {
       }
       setOtp("");
     }, 1500);
+
+    return () => clearTimeout(clearOtp);
   };
 
   const [buttonStyle, setButtonStyle] = useState({
