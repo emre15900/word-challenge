@@ -47,6 +47,11 @@ function HomePage() {
         autoClose: 1000,
       }
     );
+
+    setTimeout(() => {
+      setOtp("");
+    }, 1000);
+
     console.log("otp:", otp);
     console.log("answer:", answer);
   };
@@ -105,7 +110,7 @@ function HomePage() {
             <div style={{ width: 350 }}>
               <img
                 src={word.img}
-                alt="word-img"
+                alt={word.word}
                 style={{
                   borderRadius: "30px",
                   marginTop: "30px",
