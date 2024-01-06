@@ -36,13 +36,19 @@ const words: readonly Word[] = [
 function HomePage() {
   const [otp, setOtp] = useState("");
 
-  const notify = () => {
-    toast("Congratulations correct answer!", {
-      type: "success",
-      position: "bottom-center",
-      autoClose: 1500,
-    });
-    console.log(otp);
+  const notify = (answer: string) => {
+    toast(
+      otp === answer
+        ? "Congratulations correct answer!"
+        : "Wrong answer try again!",
+      {
+        type: otp === answer ? "success" : "error",
+        position: "bottom-center",
+        autoClose: 1000,
+      }
+    );
+    console.log("otp:", otp);
+    console.log("answer:", answer);
   };
 
   const [buttonStyle, setButtonStyle] = useState({
@@ -136,7 +142,7 @@ function HomePage() {
                 style={buttonStyle}
                 onMouseOver={handleHover}
                 onMouseLeave={handleMouseLeave}
-                onClick={notify}
+                onClick={() => notify(word.answer)}
               >
                 Verify
               </button>
