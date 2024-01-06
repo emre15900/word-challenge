@@ -49,18 +49,18 @@ function HomePage() {
 
   const notify = (answer: string) => {
     toast(
-      otp === answer
+      otp.toLocaleLowerCase() === answer.toLocaleLowerCase()
         ? "Congratulations correct answer!"
         : "Wrong answer try again!",
       {
-        type: otp === answer ? "success" : "error",
+        type: otp.toLocaleLowerCase() === answer.toLocaleLowerCase() ? "success" : "error",
         position: "bottom-center",
         autoClose: 500,
       }
     );
 
     const clearOtp = setTimeout(() => {
-      if (otp === answer) {
+      if (otp.toLocaleLowerCase() === answer.toLocaleLowerCase()) {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, words.length - 1));
       }
       setOtp("");
