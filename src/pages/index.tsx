@@ -1,6 +1,6 @@
 import React from "react";
 import OtpInput from "react-otp-input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "../styles/global.module.css";
@@ -36,6 +36,13 @@ const words: readonly Word[] = [
 function HomePage() {
   const [otp, setOtp] = useState("");
 
+  const [currentPage, setCurrentPage] = useState(0);
+  const currentWord = words[currentPage];
+
+  useEffect(() => {
+    setOtp("");
+  }, [currentPage]);
+
   const notify = (answer: string) => {
     toast(
       otp === answer
@@ -44,16 +51,16 @@ function HomePage() {
       {
         type: otp === answer ? "success" : "error",
         position: "bottom-center",
-        autoClose: 1000,
+        autoClose: 500,
       }
     );
 
-    setTimeout(() => {
+    const clearOtp = setTimeout(() => {
+      if (otp === answer) {
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, words.length - 1));
+      }
       setOtp("");
-    }, 1000);
-
-    console.log("otp:", otp);
-    console.log("answer:", answer);
+    }, 1500);
   };
 
   const [buttonStyle, setButtonStyle] = useState({
@@ -94,7 +101,70 @@ function HomePage() {
         Word Challenge
       </h1>
       <hr />
-      {words.map((word) => {
+      <div
+        key={currentWord.id}
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 10,
+        }}
+      >
+        <div style={{ width: 350 }}>
+          <img
+            src={currentWord.img}
+            alt={currentWord.word}
+            style={{
+              borderRadius: "30px",
+              marginTop: "30px",
+              boxShadow: "0 0 10px 0 #000000",
+              width: "100%",
+            }}
+          />
+        </div>
+        <div>
+          <h1>{currentWord.word}</h1>
+        </div>
+        <div className={styles.otpInput}>
+          <OtpInput
+            value={otp}
+            onChange={setOtp}
+            numInputs={currentWord.answer.length}
+            renderSeparator={<span>-</span>}
+            renderInput={(props) => <input {...props} />}
+            inputType="text"
+            // shouldAutoFocus
+            inputStyle={{
+              width: "50px",
+              height: "50px",
+              margin: "0 10px",
+              fontSize: "20px",
+              borderRadius: 50,
+              border: "1px solid rgba(0,0,0,0.3)",
+              fontWeight: 800,
+            }}
+          />
+        </div>
+        <div>
+          <button
+            style={buttonStyle}
+            onMouseOver={handleHover}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => notify(currentWord.answer)}
+          >
+            Verify
+          </button>
+          <ToastContainer />
+        </div>
+        <div>
+          <p style={{ fontWeight: 500 }}>
+            <strong>{currentWord.id}</strong> / {words.length}
+          </p>
+        </div>
+      </div>
+      {/* {words.map((word) => {
         return (
           <div
             key={word.id}
@@ -147,7 +217,7 @@ function HomePage() {
                 style={buttonStyle}
                 onMouseOver={handleHover}
                 onMouseLeave={handleMouseLeave}
-                onClick={() => notify(word.answer)}
+                onClick={() => notify(currentWord.answer)}
               >
                 Verify
               </button>
@@ -155,12 +225,12 @@ function HomePage() {
             </div>
             <div>
               <p style={{ fontWeight: 500 }}>
-                <strong>{word.id}</strong> / {words.length}
+                <strong>{currentWord.id}</strong> / {words.length}
               </p>
             </div>
           </div>
         );
-      })}
+      })} */}
     </div>
   );
 }
