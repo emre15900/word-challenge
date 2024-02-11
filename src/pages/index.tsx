@@ -559,6 +559,60 @@ const words: readonly Word[] = [
     word: "May",
     answer: "kesmek",
   },
+  {
+    id: 92,
+    img: "https://i.ytimg.com/vi/ZYVX0wviSgQ/maxresdefault.jpg",
+    word: "Admit",
+    answer: "kesmek",
+  },
+  {
+    id: 93,
+    img: "https://i.ytimg.com/vi/ZYVX0wviSgQ/maxresdefault.jpg",
+    word: "Approach",
+    answer: "kesmek",
+  },
+  {
+    id: 94,
+    img: "https://i.ytimg.com/vi/ZYVX0wviSgQ/maxresdefault.jpg",
+    word: "Catch",
+    answer: "kesmek",
+  },
+  {
+    id: 95,
+    img: "https://i.ytimg.com/vi/ZYVX0wviSgQ/maxresdefault.jpg",
+    word: "Certain",
+    answer: "kesmek",
+  },
+  {
+    id: 96,
+    img: "https://i.ytimg.com/vi/ZYVX0wviSgQ/maxresdefault.jpg",
+    word: "former",
+    answer: "kesmek",
+  },
+  {
+    id: 97,
+    img: "https://i.ytimg.com/vi/ZYVX0wviSgQ/maxresdefault.jpg",
+    word: "Pressure",
+    answer: "kesmek",
+  },
+  {
+    id: 98,
+    img: "https://i.ytimg.com/vi/ZYVX0wviSgQ/maxresdefault.jpg",
+    word: "Represent",
+    answer: "kesmek",
+  },
+  {
+    id: 99,
+    img: "https://i.ytimg.com/vi/ZYVX0wviSgQ/maxresdefault.jpg",
+    word: "Society",
+    answer: "kesmek",
+  },
+  {
+    id: 100,
+    img: "https://i.ytimg.com/vi/ZYVX0wviSgQ/maxresdefault.jpg",
+    word: "Violence",
+    answer: "kesmek",
+  },
 ];
 
 function HomePage() {
