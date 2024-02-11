@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "../styles/global.module.css";
+import { Button, CircularProgress } from "@mui/material";
 
 interface Word {
   id: number;
@@ -621,6 +622,8 @@ function HomePage() {
   const [currentPage, setCurrentPage] = useState(0);
   const currentWord = words[currentPage];
 
+  const [isDisable, setIsDisable] = useState(false);
+
   useEffect(() => {
     setOtp("");
   }, [currentPage]);
@@ -630,6 +633,8 @@ function HomePage() {
   };
 
   const notify = (answer: string) => {
+    setIsDisable(true);
+
     toast(
       otp.toLocaleLowerCase() === answer.toLocaleLowerCase()
         ? "Congratulations correct answer!"
@@ -649,39 +654,10 @@ function HomePage() {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, words.length - 1));
       }
       setOtp("");
+      setIsDisable(false);
     }, 1500);
 
     return () => clearTimeout(clearOtp);
-  };
-
-  const [buttonStyle, setButtonStyle] = useState({
-    borderRadius: "50px",
-    background: "#00e800",
-    outline: 0,
-    border: "1px solid rgb(4 201 4)",
-    padding: "12px 4rem",
-    fontWeight: 400,
-    fontSize: "17px",
-    cursor: "pointer",
-    marginTop: "20px",
-    transition: "background 0.3s ease",
-    color: "#000",
-  });
-
-  const handleHover = () => {
-    setButtonStyle({
-      ...buttonStyle,
-      background: "rgb(4 201 4)",
-      color: "#fff",
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setButtonStyle({
-      ...buttonStyle,
-      background: "#00e800",
-      color: "#000",
-    });
   };
 
   return (
@@ -743,15 +719,37 @@ function HomePage() {
             />
           </div>
           <div>
-            <button
+            <Button
               type="submit"
-              style={buttonStyle}
-              onMouseOver={handleHover}
-              onMouseLeave={handleMouseLeave}
+              sx={{
+                borderRadius: "50px",
+                background: isDisable ? "#bbbbbb" : "#00e800",
+                outline: 0,
+                border: isDisable
+                  ? "2px solid #bbbbbb"
+                  : "1px solid rgb(4 201 4)",
+                padding: "8px 3.5rem",
+                fontSize: "17px",
+                cursor: "pointer",
+                marginTop: "20px",
+                transition: "background 0.3s ease",
+                color: "#000000",
+                fontWeight: 500,
+                textTransform: "none",
+                "&:hover": {
+                  background: isDisable ? "#bbbbbb" : "rgb(4 201 4)",
+                },
+              }}
               onClick={() => notify(currentWord.answer)}
+              disabled={isDisable}
             >
-              Verify
-            </button>
+              {isDisable ? (
+                <CircularProgress size={24} sx={{ color: "#ffffff" }} />
+              ) : (
+                "Verify"
+              )}
+            </Button>
+
             <ToastContainer />
           </div>
           <div>
