@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "../styles/global.module.css";
-import { Button, CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Modal, Typography } from "@mui/material";
 
 interface Word {
   id: number;
@@ -616,6 +616,8 @@ const words: readonly Word[] = [
   },
 ];
 
+const STORAGE_KEY = "word_challenge_answers";
+
 function HomePage() {
   const [otp, setOtp] = useState("");
 
@@ -623,10 +625,21 @@ function HomePage() {
   const currentWord = words[currentPage];
 
   const [isDisable, setIsDisable] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    setOtp("");
-  }, [currentPage]);
+    const savedAnswers = localStorage.getItem(STORAGE_KEY);
+
+    if (savedAnswers) {
+      const parsedAnswers = JSON.parse(savedAnswers);
+      const lastAnsweredPage = parsedAnswers[parsedAnswers.length - 1];
+      setCurrentPage(lastAnsweredPage);
+
+      if (parsedAnswers.length > 0) {
+        setShowModal(true);
+      }
+    }
+  }, []);
 
   const handleFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -652,12 +665,28 @@ function HomePage() {
     const clearOtp = setTimeout(() => {
       if (otp.toLocaleLowerCase() === answer.toLocaleLowerCase()) {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, words.length - 1));
+        const savedAnswers = localStorage.getItem(STORAGE_KEY);
+        const updatedAnswers = savedAnswers
+          ? [...JSON.parse(savedAnswers), currentPage]
+          : [currentPage];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedAnswers));
       }
       setOtp("");
       setIsDisable(false);
     }, 1500);
 
     return () => clearTimeout(clearOtp);
+  };
+
+  const handleContinue = () => {
+    setShowModal(false);
+    setCurrentPage((prevPage) => Math.max(0, prevPage + 1));
+  };
+
+  const handleRestart = () => {
+    setShowModal(false);
+    localStorage.removeItem(STORAGE_KEY);
+    setCurrentPage(0);
   };
 
   return (
@@ -670,7 +699,7 @@ function HomePage() {
       <hr />
       <form onSubmit={handleFormSubmit}>
         <div
-          key={currentWord.id}
+          key={words[currentPage].id}
           style={{
             width: "100%",
             display: "flex",
@@ -682,8 +711,8 @@ function HomePage() {
         >
           <div style={{ width: 350 }}>
             <img
-              src={currentWord.img}
-              alt={currentWord.word}
+              src={words[currentPage].img}
+              alt={words[currentPage].word}
               style={{
                 borderRadius: "30px",
                 marginTop: "30px",
@@ -696,13 +725,13 @@ function HomePage() {
             />
           </div>
           <div>
-            <h1>{currentWord.word}</h1>
+            <h1>{words[currentPage].word}</h1>
           </div>
           <div className={styles.otpInput}>
             <OtpInput
               value={otp}
               onChange={setOtp}
-              numInputs={currentWord.answer.length}
+              numInputs={words[currentPage].answer.length}
               renderSeparator={<span>-</span>}
               renderInput={(props) => <input {...props} />}
               inputType="text"
@@ -740,7 +769,7 @@ function HomePage() {
                   background: isDisable ? "#bbbbbb" : "rgb(4 201 4)",
                 },
               }}
-              onClick={() => notify(currentWord.answer)}
+              onClick={() => notify(words[currentPage].answer)}
               disabled={isDisable}
             >
               {isDisable ? (
@@ -754,11 +783,66 @@ function HomePage() {
           </div>
           <div>
             <p style={{ fontWeight: 500 }}>
-              <strong>{currentWord.id}</strong> / {words.length}
+              <strong>{words[currentPage].id}</strong> / {words.length}
             </p>
           </div>
         </div>
       </form>
+      <Modal
+        open={showModal}
+        onClose={() => setShowModal(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{
+          border: "1px solid #000000",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            width: "400px",
+            backgroundColor: "#ffffff",
+            padding: "24px",
+            borderRadius: "30px",
+            border: "1px solid #000000",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            boxShadow: "0 0 10px 0 #000000",
+          }}
+        >
+          <h2 id="modal-modal-title">Resume or Restart?</h2>
+          <Typography id="modal-modal-description" sx={{ mb: 3}}>
+            Do you want to continue from where you left off or restart from the
+            beginning?
+          </Typography>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <Button
+              variant="outlined"
+              onClick={handleRestart}
+              sx={{
+                borderRadius: "30px",
+                textTransform: "none",
+                padding: "8px 2rem",
+              }}
+            >
+              I'll start again
+            </Button>
+            <Button
+              variant="contained"
+              color="success"
+              onClick={handleContinue}
+              sx={{
+                borderRadius: "30px",
+                textTransform: "none",
+                padding: "8px 2.5rem",
+              }}
+            >
+              I'll continue
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
