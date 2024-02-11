@@ -826,7 +826,7 @@ function HomePage() {
                 padding: "8px 2rem",
               }}
             >
-              I'll start again
+              I&apos;ll start again
             </Button>
             <Button
               variant="contained"
@@ -838,7 +838,7 @@ function HomePage() {
                 padding: "8px 2.5rem",
               }}
             >
-              I'll continue
+              I&apos;ll continue
             </Button>
           </div>
         </div>
