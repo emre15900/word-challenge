@@ -90,7 +90,7 @@ const words: readonly Word[] = [
     id: 13,
     img: "https://img.freepik.com/free-photo/close-up-person-suffering-from-anxiety_23-2150859436.jpg?t=st=1707672517~exp=1707676117~hmac=d342a0c495f3fb6c3204ca57bab2a282ebf3bcc8130f58e36a2f9e9d373c5d86&w=1800",
     word: "Dizziness",
-    answer: "Baş dönmesi",
+    answer: "Başdönmesi",
   },
   {
     id: 14,
@@ -108,7 +108,7 @@ const words: readonly Word[] = [
     id: 16,
     img: "https://img.freepik.com/free-photo/majestic-hawk-spreads-wings-tranquil-autumn-sunset-generated-by-ai_24640-100797.jpg?t=st=1707672666~exp=1707676266~hmac=d51d99deaf082f5a1f35b9995156a90349497232de7399718a69e449f2bbe087&w=2000",
     word: "Release",
-    answer: "Serbest Bırakmak",
+    answer: "SerbestBırakmak",
   },
   {
     id: 17,
@@ -234,7 +234,7 @@ const words: readonly Word[] = [
     id: 37,
     img: "https://img.freepik.com/premium-photo/silver-whisk-with-transparent-setting_1024117-9994.jpg?w=1800",
     word: "Whisk",
-    answer: "çırpma teli",
+    answer: "çırpmateli",
   },
   {
     id: 38,
@@ -426,7 +426,7 @@ const words: readonly Word[] = [
     id: 69,
     img: "https://img.freepik.com/free-photo/caucasian-african-children-learn-friendship-success-generated-by-ai_188544-29239.jpg?t=st=1707681741~exp=1707685341~hmac=ff6a04ef7dc8d1c91d793442c857e0fc3c572021b821f87a9628ece62229b80d&w=2000",
     word: "Waving",
-    answer: "El sallamak",
+    answer: "Elsallamak",
   },
   {
     id: 70,
@@ -444,7 +444,7 @@ const words: readonly Word[] = [
     id: 72,
     img: "https://img.freepik.com/free-photo/3d-heart-shape-with-crowd-people_23-2150965331.jpg?t=st=1707681951~exp=1707685551~hmac=21b52bfa2de9aefb2930d133cebf8dc9aa19b5dc56e34982e16ffa21cc0c92f9&w=2000",
     word: "Involve",
-    answer: "Dahil Etmek",
+    answer: "DahilEtmek",
   },
   {
     id: 73,
@@ -456,7 +456,7 @@ const words: readonly Word[] = [
     id: 74,
     img: "https://img.freepik.com/free-photo/man-standing-old-wooden-floor_1204-213.jpg?w=1800&t=st=1707682036~exp=1707682636~hmac=8a1d85cacadb6b0e6c38ae1be799317c63718639959b080fb255e312d157c43c",
     word: "Stand",
-    answer: "Ayakta durmak",
+    answer: "Ayaktadurmak",
   },
   {
     id: 75,
@@ -564,7 +564,7 @@ const words: readonly Word[] = [
     id: 92,
     img: "https://img.freepik.com/free-photo/businessman-businesswoman-signing-contract-office-generated-by-ai_24640-87360.jpg?t=st=1707682716~exp=1707686316~hmac=8b4645ce35919a2b931771bbb48faadeed16b6fa201c6e9fb445b641342edd84&w=2000",
     word: "Admit",
-    answer: "itiraf etmek",
+    answer: "itirafetmek",
   },
   {
     id: 93,
@@ -600,7 +600,7 @@ const words: readonly Word[] = [
     id: 98,
     img: "https://img.freepik.com/free-photo/view-professional-business-people-working-together_23-2150917076.jpg?t=st=1707682997~exp=1707686597~hmac=02400d2847682bcbb84755de4899c308800235078d0ffb45aaf5e4d692ff6bfe&w=1060",
     word: "Represent",
-    answer: "Temsil etmek",
+    answer: "Temsiletmek",
   },
   {
     id: 99,
