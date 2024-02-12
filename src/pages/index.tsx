@@ -166,7 +166,7 @@ const words: readonly Word[] = [
   },
   {
     id: 26,
-    img: "https://www.freepik.com/free-ai-image/person-wearing-futuristic-virtual-reality-glasses-gaming_133553529.htm#query=esneme%20hareketi%20spor&position=2&from_view=search&track=ais_ai_generated&uuid=38bf4e18-eac8-4cf8-951b-03cdb2f9ac9e",
+    img: "https://img.freepik.com/free-photo/person-wearing-futuristic-virtual-reality-glasses-gaming_23-2151133161.jpg?t=st=1707773223~exp=1707776823~hmac=4d2d54e2983495a910b662f16ef474f9307b270d50628269624ade87d9f51ae8&w=1480",
     word: "Loose",
     answer: "Gevşetmek",
   },
