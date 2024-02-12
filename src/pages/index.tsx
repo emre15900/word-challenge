@@ -47,7 +47,7 @@ const words: readonly Word[] = [
   {
     id: 6,
     img: "https://img.freepik.com/free-photo/fast-fashion-concept-with-full-clothing-store_23-2150871144.jpg?t=st=1707672304~exp=1707675904~hmac=75afeb680a96bb1050f3ef717379e310c14b2ed3e635b445d0e51f6abe297329&w=2000",
-    word: "Arranged",
+    word: "Arrange",
     answer: "Düzenlemek",
   },
   {
