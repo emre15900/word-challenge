@@ -227,8 +227,8 @@ const words: readonly Word[] = [
   {
     id: 36,
     img: "https://img.freepik.com/free-photo/strawberry-milkshake-black-background_1268-25079.jpg?t=st=1707673401~exp=1707677001~hmac=7801fc5073dc4c54f57011a5710d09f46e223b135a0bd490b8f735393cd3b23d&w=1800",
-    word: "Shaken",
-    answer: "Sarsılmış",
+    word: "Shake",
+    answer: "Sallamak",
   },
   {
     id: 37,
