@@ -13,6 +13,7 @@ import {
   Alert,
   Stack,
   Grid,
+  useMediaQuery,
 } from "@mui/material";
 
 interface Word {
@@ -628,6 +629,8 @@ const words: readonly Word[] = [
 const STORAGE_KEY = "word_challenge_answers";
 
 function HomePage() {
+  const responsive = useMediaQuery("(max-width:728px)");
+
   const [otp, setOtp] = useState("");
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -891,13 +894,14 @@ function HomePage() {
         <div
           style={{
             position: "absolute",
-            width: "400px",
+            maxWidth: "400px",
+            width: "80%",
             backgroundColor: "#ffffff",
             padding: "24px",
             borderRadius: "30px",
             border: "1px solid #000000",
             top: "50%",
-            left: "50%",
+            left: "48%",
             transform: "translate(-50%, -50%)",
             boxShadow: "0 0 10px 0 #000000",
           }}
@@ -914,7 +918,7 @@ function HomePage() {
               sx={{
                 borderRadius: "30px",
                 textTransform: "none",
-                padding: "8px 2rem",
+                padding: responsive ? "8px 1.5rem" : "8px 2rem",
               }}
             >
               I&apos;ll start again
@@ -926,7 +930,7 @@ function HomePage() {
               sx={{
                 borderRadius: "30px",
                 textTransform: "none",
-                padding: "8px 2.5rem",
+                padding: responsive ? "8px 2rem" : "8px 2.5rem",
               }}
             >
               I&apos;ll continue
