@@ -4,7 +4,13 @@ import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styles from "../styles/global.module.css";
-import { Button, CircularProgress, Modal, Typography } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Modal,
+  Typography,
+  Popover,
+} from "@mui/material";
 
 interface Word {
   id: number;
@@ -18,7 +24,7 @@ const words: readonly Word[] = [
     id: 1,
     img: "https://img.freepik.com/free-photo/closeup-view-twocar-collision_157027-3862.jpg?t=st=1707671064~exp=1707674664~hmac=5edcf44b3345b3f573f26a60b694e7855d639a51ff161420a675313cbde6f3cf&w=2000",
     word: "Accident",
-    answer: "kaza",
+    answer: "Kaza Yapmak",
   },
   {
     id: 2,
@@ -90,7 +96,7 @@ const words: readonly Word[] = [
     id: 13,
     img: "https://img.freepik.com/free-photo/close-up-person-suffering-from-anxiety_23-2150859436.jpg?t=st=1707672517~exp=1707676117~hmac=d342a0c495f3fb6c3204ca57bab2a282ebf3bcc8130f58e36a2f9e9d373c5d86&w=1800",
     word: "Dizziness",
-    answer: "Başdönmesi",
+    answer: "Baş Dönmesi",
   },
   {
     id: 14,
@@ -108,7 +114,7 @@ const words: readonly Word[] = [
     id: 16,
     img: "https://img.freepik.com/free-photo/majestic-hawk-spreads-wings-tranquil-autumn-sunset-generated-by-ai_24640-100797.jpg?t=st=1707672666~exp=1707676266~hmac=d51d99deaf082f5a1f35b9995156a90349497232de7399718a69e449f2bbe087&w=2000",
     word: "Release",
-    answer: "SerbestBırakmak",
+    answer: "Serbest Bırakmak",
   },
   {
     id: 17,
@@ -234,7 +240,7 @@ const words: readonly Word[] = [
     id: 37,
     img: "https://img.freepik.com/premium-photo/silver-whisk-with-transparent-setting_1024117-9994.jpg?w=1800",
     word: "Whisk",
-    answer: "çırpmateli",
+    answer: "Çırpma Teli",
   },
   {
     id: 38,
@@ -456,7 +462,7 @@ const words: readonly Word[] = [
     id: 74,
     img: "https://img.freepik.com/free-photo/man-standing-old-wooden-floor_1204-213.jpg?w=1800&t=st=1707682036~exp=1707682636~hmac=8a1d85cacadb6b0e6c38ae1be799317c63718639959b080fb255e312d157c43c",
     word: "Stand",
-    answer: "Ayaktadurmak",
+    answer: "Ayakta Durmak",
   },
   {
     id: 75,
@@ -468,7 +474,7 @@ const words: readonly Word[] = [
     id: 76,
     img: "https://img.freepik.com/free-photo/circular-arrows-refresh-icon-rotation-arrows-icon-sign-symbol-white-background-3d-illustration_56104-2006.jpg?w=1800&t=st=1708023426~exp=1708024026~hmac=de3ea494cd07a7a77459e671773bc5c9c74830ce3bfc77dc1a021779820df7cb",
     word: "Undo",
-    answer: "Gerialma",
+    answer: "Geri Alma",
   },
   {
     id: 77,
@@ -564,7 +570,7 @@ const words: readonly Word[] = [
     id: 92,
     img: "https://img.freepik.com/free-photo/businessman-businesswoman-signing-contract-office-generated-by-ai_24640-87360.jpg?t=st=1707682716~exp=1707686316~hmac=8b4645ce35919a2b931771bbb48faadeed16b6fa201c6e9fb445b641342edd84&w=2000",
     word: "Admit",
-    answer: "itirafetmek",
+    answer: "itiraf Etmek",
   },
   {
     id: 93,
@@ -600,7 +606,7 @@ const words: readonly Word[] = [
     id: 98,
     img: "https://img.freepik.com/free-photo/view-professional-business-people-working-together_23-2150917076.jpg?t=st=1707682997~exp=1707686597~hmac=02400d2847682bcbb84755de4899c308800235078d0ffb45aaf5e4d692ff6bfe&w=1060",
     word: "Represent",
-    answer: "Temsiletmek",
+    answer: "Temsil Etmek",
   },
   {
     id: 99,
@@ -649,12 +655,13 @@ function HomePage() {
     setIsDisable(true);
 
     toast(
-      otp.toLocaleLowerCase() === answer.toLocaleLowerCase()
+      otp.toLocaleLowerCase() === answer.split(" ").join("").toLocaleLowerCase()
         ? "Congratulations correct answer!"
         : "Wrong answer try again!",
       {
         type:
-          otp.toLocaleLowerCase() === answer.toLocaleLowerCase()
+          otp.toLocaleLowerCase() ===
+          answer.split(" ").join("").toLocaleLowerCase()
             ? "success"
             : "error",
         position: "bottom-center",
@@ -663,7 +670,7 @@ function HomePage() {
     );
 
     const clearOtp = setTimeout(() => {
-      if (otp.toLocaleLowerCase() === answer.toLocaleLowerCase()) {
+      if (otp.toLocaleLowerCase() === answer.split(' ').join('').toLocaleLowerCase()) {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, words.length - 1));
         const savedAnswers = localStorage.getItem(STORAGE_KEY);
         const updatedAnswers = savedAnswers
@@ -688,6 +695,19 @@ function HomePage() {
     localStorage.removeItem(STORAGE_KEY);
     setCurrentPage(0);
   };
+
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "display-popover" : undefined;
 
   return (
     <div style={{ width: "100%" }}>
@@ -725,13 +745,39 @@ function HomePage() {
             />
           </div>
           <div>
-            <h1>{words[currentPage].word}</h1>
+            <Button aria-describedby={id} onClick={handleClick} sx={{ mt: 1 }}>
+              <Typography
+                variant="h4"
+                sx={{
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  color: "#000000",
+                  textTransform: "none",
+                }}
+              >
+                {words[currentPage].word}
+              </Typography>
+            </Button>
           </div>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left",
+            }}
+          >
+            <Typography sx={{ p: 2 }}>
+              {words[currentPage].answer.replace(/\s+/g, " ").trim()}
+            </Typography>
+          </Popover>
           <div className={styles.otpInput}>
             <OtpInput
               value={otp}
               onChange={setOtp}
-              numInputs={words[currentPage].answer.length}
+              numInputs={words[currentPage].answer.split(" ").join("").length}
               renderSeparator={<span>-</span>}
               renderInput={(props) => <input {...props} />}
               inputType="text"
@@ -812,7 +858,7 @@ function HomePage() {
           }}
         >
           <h2 id="modal-modal-title">Resume or Restart?</h2>
-          <Typography id="modal-modal-description" sx={{ mb: 3}}>
+          <Typography id="modal-modal-description" sx={{ mb: 3 }}>
             Do you want to continue from where you left off or restart from the
             beginning?
           </Typography>
