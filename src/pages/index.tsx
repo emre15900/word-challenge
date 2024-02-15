@@ -10,6 +10,9 @@ import {
   Modal,
   Typography,
   Popover,
+  Alert,
+  Stack,
+  Grid,
 } from "@mui/material";
 
 interface Word {
@@ -755,8 +758,22 @@ function HomePage() {
               }}
             />
           </div>
+          <Grid
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              mt: 1,
+            }}
+          >
+            <Stack sx={{ width: "100%" }} spacing={2}>
+              <Alert severity="info">
+                If you don't know the answer, click on the word!
+              </Alert>
+            </Stack>
+          </Grid>
           <div>
-            <Button aria-describedby={id} onClick={handleClick} sx={{ mt: 1 }}>
+            <Button aria-describedby={id} onClick={handleClick}>
               <Typography
                 variant="h4"
                 sx={{
