@@ -24,7 +24,7 @@ const words: readonly Word[] = [
     id: 1,
     img: "https://img.freepik.com/free-photo/closeup-view-twocar-collision_157027-3862.jpg?t=st=1707671064~exp=1707674664~hmac=5edcf44b3345b3f573f26a60b694e7855d639a51ff161420a675313cbde6f3cf&w=2000",
     word: "Accident",
-    answer: "Kaza Yapmak",
+    answer: "kaza yapmak",
   },
   {
     id: 2,
@@ -670,7 +670,10 @@ function HomePage() {
     );
 
     const clearOtp = setTimeout(() => {
-      if (otp.toLocaleLowerCase() === answer.split(' ').join('').toLocaleLowerCase()) {
+      if (
+        otp.toLocaleLowerCase() ===
+        answer.split(" ").join("").toLocaleLowerCase()
+      ) {
         setCurrentPage((prevPage) => Math.min(prevPage + 1, words.length - 1));
         const savedAnswers = localStorage.getItem(STORAGE_KEY);
         const updatedAnswers = savedAnswers
@@ -770,7 +773,13 @@ function HomePage() {
             }}
           >
             <Typography sx={{ p: 2 }}>
-              {words[currentPage].answer.replace(/\s+/g, " ").trim()}
+              {words[currentPage].answer
+                .trim()
+                .split(/\s+/)
+                .map(
+                  (word: string) => word.charAt(0).toUpperCase() + word.slice(1)
+                )
+                .join(" ")}
             </Typography>
           </Popover>
           <div className={styles.otpInput}>
