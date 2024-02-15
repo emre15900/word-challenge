@@ -758,20 +758,6 @@ function HomePage() {
               }}
             />
           </div>
-          <Grid
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              mt: 1,
-            }}
-          >
-            <Stack sx={{ width: "100%" }} spacing={2}>
-              <Alert severity="info">
-                If you don't know the answer, click on the word!
-              </Alert>
-            </Stack>
-          </Grid>
           <div>
             <Button aria-describedby={id} onClick={handleClick}>
               <Typography
@@ -860,6 +846,21 @@ function HomePage() {
           </div>
         </div>
       </form>
+      <Grid
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          mt: 1,
+          mb: 2,
+        }}
+      >
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert severity="info">
+            If you don't know the answer, click on the word!
+          </Alert>
+        </Stack>
+      </Grid>
       <Modal
         open={showModal}
         onClose={() => setShowModal(false)}
