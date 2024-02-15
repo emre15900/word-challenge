@@ -27,7 +27,7 @@ const words: readonly Word[] = [
     id: 1,
     img: "https://img.freepik.com/free-photo/closeup-view-twocar-collision_157027-3862.jpg?t=st=1707671064~exp=1707674664~hmac=5edcf44b3345b3f573f26a60b694e7855d639a51ff161420a675313cbde6f3cf&w=2000",
     word: "Accident",
-    answer: "kaza yapmak",
+    answer: "kaza",
   },
   {
     id: 2,
@@ -725,11 +725,29 @@ function HomePage() {
 
   return (
     <div style={{ width: "100%" }}>
-      <h1
-        style={{ textAlign: "center", marginTop: "30px", marginBottom: "20px" }}
+      <Grid
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+          justifyContent: "center",
+          mb: 2,
+          mt: 2,
+        }}
       >
-        Word Challenge
-      </h1>
+        <Grid sx={{ display: "flex", alignItems: "center", gap: 0.4 }}>
+          <img src="/img/w-word.png" width={50} alt="W" />
+          <Typography variant="h4" sx={{ fontWeight: 600 }}>
+            ord
+          </Typography>
+        </Grid>
+        <Grid sx={{ display: "flex", alignItems: "center", gap: 0.4 }}>
+          <img src="/img/c-word.png" width={50} alt="C" />
+          <Typography variant="h4" sx={{ fontWeight: 600 }}>
+            hallenge
+          </Typography>
+        </Grid>
+      </Grid>
       <hr />
       <form onSubmit={handleFormSubmit}>
         <div
@@ -855,7 +873,7 @@ function HomePage() {
           mb: 2,
         }}
       >
-        <Stack sx={{ width: "100%" }} spacing={2}>
+        <Stack spacing={2}>
           <Alert severity="info">
             If you don&apos;t know the answer, click on the word!
           </Alert>
