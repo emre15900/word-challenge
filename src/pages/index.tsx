@@ -466,9 +466,9 @@ const words: readonly Word[] = [
   },
   {
     id: 76,
-    img: "https://img.freepik.com/free-photo/strawberry-milkshake-black-background_1268-25081.jpg?t=st=1707649229~exp=1707652829~hmac=0a72bc60c25b2a0dded93fc88a6cfa0ba0241c26990fcf3dd67b51f73ff80ffb&w=1800",
-    word: "Shake",
-    answer: "Sallamak",
+    img: "https://img.freepik.com/free-photo/circular-arrows-refresh-icon-rotation-arrows-icon-sign-symbol-white-background-3d-illustration_56104-2006.jpg?w=1800&t=st=1708023426~exp=1708024026~hmac=de3ea494cd07a7a77459e671773bc5c9c74830ce3bfc77dc1a021779820df7cb",
+    word: "Undo",
+    answer: "Gerialma",
   },
   {
     id: 77,
