@@ -712,6 +712,14 @@ function HomePage() {
   const open = Boolean(anchorEl);
   const id = open ? "display-popover" : undefined;
 
+  const showAnswer = currentWord.answer
+    .trim()
+    .split(/\s+/)
+    .map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  const otpLength = currentWord.answer.split(" ").join("").length;
+
   return (
     <div style={{ width: "100%" }}>
       <h1
@@ -722,7 +730,7 @@ function HomePage() {
       <hr />
       <form onSubmit={handleFormSubmit}>
         <div
-          key={words[currentPage].id}
+          key={currentWord.id}
           style={{
             width: "100%",
             display: "flex",
@@ -734,8 +742,8 @@ function HomePage() {
         >
           <div style={{ width: 350 }}>
             <img
-              src={words[currentPage].img}
-              alt={words[currentPage].word}
+              src={currentWord.img}
+              alt={currentWord.word}
               style={{
                 borderRadius: "30px",
                 marginTop: "30px",
@@ -758,7 +766,7 @@ function HomePage() {
                   textTransform: "none",
                 }}
               >
-                {words[currentPage].word}
+                {currentWord.word}
               </Typography>
             </Button>
           </div>
@@ -772,21 +780,13 @@ function HomePage() {
               horizontal: "left",
             }}
           >
-            <Typography sx={{ p: 2 }}>
-              {words[currentPage].answer
-                .trim()
-                .split(/\s+/)
-                .map(
-                  (word: string) => word.charAt(0).toUpperCase() + word.slice(1)
-                )
-                .join(" ")}
-            </Typography>
+            <Typography sx={{ p: 2 }}>{showAnswer}</Typography>
           </Popover>
           <div className={styles.otpInput}>
             <OtpInput
               value={otp}
               onChange={setOtp}
-              numInputs={words[currentPage].answer.split(" ").join("").length}
+              numInputs={otpLength}
               renderSeparator={<span>-</span>}
               renderInput={(props) => <input {...props} />}
               inputType="text"
@@ -824,7 +824,7 @@ function HomePage() {
                   background: isDisable ? "#bbbbbb" : "rgb(4 201 4)",
                 },
               }}
-              onClick={() => notify(words[currentPage].answer)}
+              onClick={() => notify(currentWord.answer)}
               disabled={isDisable}
             >
               {isDisable ? (
@@ -838,7 +838,7 @@ function HomePage() {
           </div>
           <div>
             <p style={{ fontWeight: 500 }}>
-              <strong>{words[currentPage].id}</strong> / {words.length}
+              <strong>{currentWord.id}</strong> / {words.length}
             </p>
           </div>
         </div>
