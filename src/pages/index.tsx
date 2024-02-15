@@ -857,7 +857,7 @@ function HomePage() {
       >
         <Stack sx={{ width: "100%" }} spacing={2}>
           <Alert severity="info">
-            If you don't know the answer, click on the word!
+            If you don&apos;t know the answer, click on the word!
           </Alert>
         </Stack>
       </Grid>
