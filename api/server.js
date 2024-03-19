@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const path = require("path");
 const WordModel = require("./models/WordModel");
 
 const app = express();
@@ -26,11 +25,14 @@ mongoose
     console.log(err);
   });
 
-app.post("/add-new-word", (req, res) => {
+app.post("/add-new-word", async (req, res) => {
   try {
-    const word = req.body.word;
-    const answer = req.body.answer;
-    const image = req.body.image;
+    const { word, answer, image } = req.body;
+
+    const existingWord = await WordModel.findOne({ word: word });
+    if (existingWord) {
+      return res.status(400).json({ error: "Word already exists!" });
+    }
 
     const wordData = new WordModel({
       word: word,
@@ -38,18 +40,11 @@ app.post("/add-new-word", (req, res) => {
       image: image,
     });
 
-    const words = wordData
-      .save()
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    res.status(200).json(words);
+    const savedWord = await wordData.save();
+    res.status(200).json(savedWord);
   } catch (err) {
     console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
