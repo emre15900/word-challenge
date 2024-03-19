@@ -25,6 +25,12 @@ mongoose
     console.log(err);
   });
 
+app.get("/add-new-word", (req, res) => {
+  WordModel.find().then((words) => {
+    res.json(words);
+  });
+});
+
 app.post("/add-new-word", async (req, res) => {
   try {
     const { word, answer, image } = req.body;
