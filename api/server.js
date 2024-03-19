@@ -31,6 +31,17 @@ app.get("/add-new-word", (req, res) => {
   });
 });
 
+app.delete("/delete/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const deletedWord = await WordModel.findByIdAndDelete(id);
+    res.status(200).json(deletedWord);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.post("/add-new-word", async (req, res) => {
   try {
     const { word, answer, image } = req.body;
