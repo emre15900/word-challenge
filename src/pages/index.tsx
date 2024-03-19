@@ -15,6 +15,7 @@ import {
   Grid,
   useMediaQuery,
 } from "@mui/material";
+import Link from "next/link";
 
 interface Word {
   id: number;
@@ -881,6 +882,13 @@ function HomePage() {
             If you don&apos;t know the answer, click on the word!
           </Alert>
         </Stack>
+      </Grid>
+      <Grid
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <Link href="/add-new-word">
+          <Button variant="contained">Add new word</Button>
+        </Link>
       </Grid>
       <Modal
         open={showModal}
