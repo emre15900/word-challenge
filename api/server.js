@@ -25,6 +25,12 @@ mongoose
     console.log(err);
   });
 
+app.get("/all-words", (req, res) => {
+  WordModel.find().then((words) => {
+    res.json(words);
+  });
+});
+
 app.get("/add-new-word", (req, res) => {
   WordModel.find().then((words) => {
     res.json(words);
@@ -58,7 +64,10 @@ app.post("/add-new-word", async (req, res) => {
     });
 
     const savedWord = await wordData.save();
-    res.status(200).json(savedWord);
+
+    const updatedWords = await WordModel.find();
+
+    res.status(200).json(updatedWords);
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Internal Server Error" });

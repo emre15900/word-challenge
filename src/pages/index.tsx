@@ -21,7 +21,7 @@ import axios from "axios";
 
 interface Word {
   _id: number;
-  img: string;
+  image: string;
   word: string;
   answer: string;
 }
@@ -47,9 +47,12 @@ function HomePage() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/add-new-word");
+      const response = await axios.get("http://localhost:4000/all-words");
       const data = response.data;
-      setWords(data);
+      const reversedData = data.reverse();
+      setWords(reversedData);
+      // setWords(data);
+      console.log("reversedData:", reversedData);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -213,7 +216,7 @@ function HomePage() {
         >
           <div style={{ width: 350 }}>
             <img
-              src={currentWord?.img}
+              src={currentWord?.image}
               alt={currentWord?.word}
               style={{
                 borderRadius: "30px",
@@ -351,7 +354,20 @@ function HomePage() {
           }}
         >
           <Link href="/add-new-word">
-            <Button variant="contained">Add new word</Button>
+            <Button
+              variant="contained"
+              sx={{
+                borderRadius: "30px",
+                textTransform: "none",
+                backgroundColor: "#000000",
+                padding: "8px 2rem",
+                "&:hover": {
+                  backgroundColor: "#313131",
+                },
+              }}
+            >
+              Add new word
+            </Button>
           </Link>
         </Grid>
         <Grid
@@ -361,7 +377,22 @@ function HomePage() {
             justifyContent: "center",
           }}
         >
-          <Button onClick={handleDelete(currentWord?._id)} variant="contained">
+          <Button
+            onClick={handleDelete(currentWord?._id)}
+            variant="contained"
+            sx={{
+              borderRadius: "30px",
+              textTransform: "none",
+              backgroundColor: "#ffffff",
+              padding: "7px 2.5rem",
+              border: "1.8px solid #000000",
+              color: "#000000",
+              fontWeight: 500,
+              "&:hover": {
+                backgroundColor: "#ddd",
+              },
+            }}
+          >
             Delete Word
           </Button>
         </Grid>
