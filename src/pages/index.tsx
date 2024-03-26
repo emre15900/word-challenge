@@ -16,6 +16,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Link from "next/link";
+import Swal from "sweetalert2";
 
 interface Word {
   _id: number;
@@ -142,12 +143,34 @@ function HomePage() {
   const otpLength = currentWord?.answer.split(" ").join("").length;
 
   const handleDelete = (id: number) => async () => {
-    const response = await fetch(`http://localhost:4000/delete/${id}`);
-    const data = await response.json();
-    setWords(data);
-    console.log("Data22:", data);
-    console.log("id:", id);
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
 
+    if (result.isConfirmed) {
+      try {
+        const response = await fetch(`http://localhost:4000/delete/${id}`, {
+          method: "DELETE",
+        });
+        if (!response.ok) {
+          throw new Error("Failed to delete word");
+        }
+        const updatedWords = words.filter((word) => word._id !== id);
+        setWords(updatedWords);
+        console.log("Word deleted successfully");
+
+        Swal.fire("Deleted!", "Your word has been deleted.", "success");
+      } catch (error) {
+        console.error("Error deleting word:", error);
+        Swal.fire("Error!", "Failed to delete word.", "error");
+      }
+    }
   };
 
   return (
@@ -290,7 +313,8 @@ function HomePage() {
               <strong>
                 {currentPage + 1}
                 {/* {currentWord?._id} */}
-                </strong> / {words.length}
+              </strong>{" "}
+              / {words.length}
             </p>
           </div>
         </div>
