@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 interface Word {
   _id: number;
@@ -46,10 +47,9 @@ function HomePage() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:4000/add-new-word");
-      const data = await response.json();
+      const response = await axios.get("http://localhost:4000/add-new-word");
+      const data = response.data;
       setWords(data);
-      console.log("Data:", data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -155,10 +155,10 @@ function HomePage() {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:4000/delete/${id}`, {
-          method: "DELETE",
-        });
-        if (!response.ok) {
+        const response = await axios.delete(
+          `http://localhost:4000/delete/${id}`
+        );
+        if (response.status !== 200) {
           throw new Error("Failed to delete word");
         }
         const updatedWords = words.filter((word) => word._id !== id);
