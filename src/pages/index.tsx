@@ -224,7 +224,7 @@ function HomePage() {
                 boxShadow: "0 0 10px 0 #000000",
                 width: "100%",
                 height: "250px",
-                minHeight: "250px",
+                minHeight: "420px",
                 minWidth: "350px",
                 objectFit: "cover",
               }}

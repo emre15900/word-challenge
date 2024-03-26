@@ -27,6 +27,30 @@ function AddNewWord() {
 
   return (
     <Grid>
+      <Grid
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 2,
+          justifyContent: "center",
+          mb: 2,
+          mt: 2,
+        }}
+      >
+        <Grid sx={{ display: "flex", alignItems: "center", gap: 0.4 }}>
+          <img src="/img/w-word.png" width={50} alt="W" />
+          <Typography variant="h4" sx={{ fontWeight: 600 }}>
+            ord
+          </Typography>
+        </Grid>
+        <Grid sx={{ display: "flex", alignItems: "center", gap: 0.4 }}>
+          <img src="/img/c-word.png" width={50} alt="C" />
+          <Typography variant="h4" sx={{ fontWeight: 600 }}>
+            hallenge
+          </Typography>
+        </Grid>
+      </Grid>
+      <hr />
       <Typography
         variant="h5"
         sx={{ fontWeight: 500, textAlign: "center", mb: 3, mt: 4 }}
