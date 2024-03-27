@@ -10,6 +10,11 @@ function AddNewWord() {
   const [image, setImage] = useState("");
 
   const handleAddWord = async () => {
+    if (!word || !answer || !image) {
+      console.error("Please fill in all fields.");
+      return;
+    }
+
     try {
       const response = await axios.post("http://localhost:4000/add-new-word", {
         word: word,
