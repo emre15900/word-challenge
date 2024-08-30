@@ -1,38 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextField, Grid, Typography, Button } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
+import { Formik, Form, Field, FormikHelpers } from "formik";
+import * as Yup from "yup";
+
+// Form values type
+interface FormValues {
+  word: string;
+  answer: string;
+  image: string;
+}
+
+// Form validation schema
+const validationSchema = Yup.object().shape({
+  word: Yup.string().required("Word is required"),
+  answer: Yup.string().required("Answer is required"),
+  image: Yup.string()
+    // .url("Invalid URL format")
+    .matches(
+      /\.(jpeg|jpg|gif|png|webp)$/,
+      "Image must have a valid file extension (.jpg, .jpeg, .gif, .png, .webp)"
+    )
+    .required("Image URL is required"),
+});
 
 function AddNewWord() {
-  const [word, setWord] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [image, setImage] = useState("");
   const router = useRouter();
 
-  const handleAddWord = async () => {
-    if (!word || !answer || !image) {
-      toast.error("Please fill in all fields.");
-      return;
-    }
-
+  const handleAddWord = async (
+    values: FormValues,
+    { resetForm }: FormikHelpers<FormValues>
+  ) => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/words`,
         {
-          word: word,
-          answer: answer,
-          image: image,
+          word: values.word,
+          answer: values.answer,
+          image: values.image,
         }
       );
 
       if (response.status === 201) {
-        setWord("");
-        setAnswer("");
-        setImage("");
         toast.success("Word added successfully!");
+        resetForm();
 
         setTimeout(() => {
           router.push("/");
@@ -95,59 +110,75 @@ function AddNewWord() {
             minWidth: 350,
           }}
         >
-          <TextField
-            fullWidth
-            id="word"
-            label="Word"
-            variant="outlined"
-            value={word}
-            onChange={(e) => setWord(e.target.value)}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "30px !important",
-              },
-            }}
-          />
-          <TextField
-            fullWidth
-            id="answer"
-            label="Answer"
-            variant="outlined"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "30px !important",
-              },
-            }}
-          />
-          <TextField
-            fullWidth
-            id="image"
-            label="Image"
-            variant="outlined"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "30px !important",
-              },
-            }}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            onClick={handleAddWord}
-            sx={{
-              borderRadius: "30px",
-              backgroundColor: "#00198f",
-              "&:hover": {
-                backgroundColor: "#062cdf",
-              },
-            }}
+          <Formik
+            initialValues={{ word: "", answer: "", image: "" }}
+            validationSchema={validationSchema}
+            onSubmit={handleAddWord}
           >
-            Add
-          </Button>
+            {({ errors, touched }) => (
+              <Form>
+                <Field
+                  as={TextField}
+                  fullWidth
+                  id="word"
+                  name="word"
+                  label="Word"
+                  variant="outlined"
+                  error={touched.word && Boolean(errors.word)}
+                  helperText={touched.word && errors.word}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "30px !important",
+                    },
+                  }}
+                />
+                <Field
+                  as={TextField}
+                  fullWidth
+                  id="answer"
+                  name="answer"
+                  label="Answer"
+                  variant="outlined"
+                  error={touched.answer && Boolean(errors.answer)}
+                  helperText={touched.answer && errors.answer}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "30px !important",
+                    },
+                  }}
+                />
+                <Field
+                  as={TextField}
+                  fullWidth
+                  id="image"
+                  name="image"
+                  label="Image"
+                  variant="outlined"
+                  error={touched.image && Boolean(errors.image)}
+                  helperText={touched.image && errors.image}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "30px !important",
+                    },
+                  }}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    borderRadius: "30px",
+                    backgroundColor: "#00198f",
+                    "&:hover": {
+                      backgroundColor: "#062cdf",
+                    },
+                    mt: 2,
+                  }}
+                >
+                  Add
+                </Button>
+              </Form>
+            )}
+          </Formik>
           <Link href="/" style={{ textDecoration: "none" }}>
             <Grid>
               <Button
@@ -163,6 +194,7 @@ function AddNewWord() {
                   "&:hover": {
                     backgroundColor: "#313131",
                   },
+                  mt: 2,
                 }}
               >
                 Back to Home
