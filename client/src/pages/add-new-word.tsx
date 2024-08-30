@@ -107,7 +107,8 @@ function AddNewWord() {
             display: "flex",
             flexDirection: "column",
             gap: "10px",
-            minWidth: 350,
+            minWidth: 340,
+            maxWidth: 450,
           }}
         >
           <Formik
@@ -145,6 +146,7 @@ function AddNewWord() {
                     "& .MuiOutlinedInput-root": {
                       borderRadius: "30px !important",
                     },
+                    mt: 2,
                   }}
                 />
                 <Field
@@ -160,6 +162,7 @@ function AddNewWord() {
                     "& .MuiOutlinedInput-root": {
                       borderRadius: "30px !important",
                     },
+                    mt: 2,
                   }}
                 />
                 <Button
@@ -168,6 +171,8 @@ function AddNewWord() {
                   sx={{
                     borderRadius: "30px",
                     backgroundColor: "#00198f",
+                    width: "100%",
+                    padding: "8px 2rem",
                     "&:hover": {
                       backgroundColor: "#062cdf",
                     },
@@ -190,11 +195,12 @@ function AddNewWord() {
                   justifyContent: "center",
                   textDecoration: "none",
                   width: "100%",
+                  padding: "8px 2rem",
                   backgroundColor: "#000000",
                   "&:hover": {
                     backgroundColor: "#313131",
                   },
-                  mt: 2,
+                  mt: 1,
                 }}
               >
                 Back to Home
