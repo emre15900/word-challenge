@@ -214,18 +214,18 @@ function HomePage() {
             gap: 10,
           }}
         >
-          <div style={{ width: 350 }}>
+          <div style={{ width: 200 }}>
             <img
               src={currentWord?.image}
               alt={currentWord?.word}
               style={{
-                borderRadius: "30px",
-                marginTop: "30px",
-                boxShadow: "0 0 10px 0 #000000",
+                borderRadius: "10px",
+                marginTop: "20px",
+                boxShadow: "0 0 7px 0 #4c4c4c",
                 width: "100%",
                 height: "250px",
-                minHeight: "420px",
-                minWidth: "350px",
+                minHeight: "250px",
+                minWidth: "200px",
                 objectFit: "cover",
               }}
             />
@@ -233,7 +233,7 @@ function HomePage() {
           <div>
             <Button aria-describedby={id} onClick={handleClick}>
               <Typography
-                variant="h4"
+                variant="h5"
                 sx={{
                   fontWeight: 800,
                   cursor: "pointer",
@@ -267,8 +267,8 @@ function HomePage() {
               inputType="text"
               shouldAutoFocus
               inputStyle={{
-                width: "42px",
-                height: "42px",
+                width: "40px",
+                height: "40px",
                 margin: "0 10px",
                 fontSize: "20px",
                 borderRadius: 80,
@@ -282,15 +282,15 @@ function HomePage() {
               type="submit"
               sx={{
                 borderRadius: "50px",
-                background: isDisable ? "#bbbbbb" : "#00e800",
+                background: isDisable ? "#bbbbbb" : "#1CE3B2",
                 outline: 0,
                 border: isDisable
                   ? "2px solid #bbbbbb"
-                  : "1px solid rgb(4 201 4)",
-                padding: "8px 3.5rem",
+                  : "1px solid #1CE3B2",
+                padding: "5px 3rem",
                 fontSize: "17px",
                 cursor: "pointer",
-                marginTop: "20px",
+                marginTop: "5px",
                 transition: "background 0.3s ease",
                 color: "#000000",
                 fontWeight: 500,
