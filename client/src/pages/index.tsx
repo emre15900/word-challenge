@@ -47,11 +47,12 @@ function HomePage() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/all-words");
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/words`
+      );
       const data = response.data;
       const reversedData = data.reverse();
       setWords(reversedData);
-      // setWords(data);
       console.log("reversedData:", reversedData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -159,7 +160,7 @@ function HomePage() {
     if (result.isConfirmed) {
       try {
         const response = await axios.delete(
-          `http://localhost:4000/delete/${id}`
+          `${process.env.NEXT_PUBLIC_API_DELETE_URL}/${id}`
         );
         if (response.status !== 200) {
           throw new Error("Failed to delete word");

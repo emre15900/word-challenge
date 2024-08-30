@@ -16,11 +16,14 @@ function AddNewWord() {
     }
 
     try {
-      const response = await axios.post("http://localhost:4000/add-new-word", {
-        word: word,
-        answer: answer,
-        image: image,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_DELETE_URL}/words`,
+        {
+          word: word,
+          answer: answer,
+          image: image,
+        }
+      );
       console.log(response.data);
       setWord("");
       setAnswer("");
