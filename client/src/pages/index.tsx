@@ -51,9 +51,8 @@ function HomePage() {
         `${process.env.NEXT_PUBLIC_API_URL}/words`
       );
       const data = response.data;
-      const reversedData = data.reverse();
-      setWords(reversedData);
-      console.log("reversedData:", reversedData);
+      // const reversedData = data.reverse();
+      setWords(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -160,7 +159,7 @@ function HomePage() {
     if (result.isConfirmed) {
       try {
         const response = await axios.delete(
-          `${process.env.NEXT_PUBLIC_API_URL}/${id}`
+          `${process.env.NEXT_PUBLIC_API_URL}/words/${id}`
         );
         if (response.status !== 200) {
           throw new Error("Failed to delete word");
