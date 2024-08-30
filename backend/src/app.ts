@@ -7,9 +7,11 @@ dotenv.config();
 
 const app: Application = express();
 
+// Middleware'ler
 app.use(cors());
 app.use(express.json());
 
+// Route'lar
 app.use('/api/words', wordRoutes);
 
 export default app;
