@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { TextField, Grid, Typography, Button } from "@mui/material";
 import axios from "axios";
-
+import { useRouter } from "next/router";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 
 function AddNewWord() {
   const [word, setWord] = useState("");
   const [answer, setAnswer] = useState("");
   const [image, setImage] = useState("");
+  const router = useRouter();
 
   const handleAddWord = async () => {
     if (!word || !answer || !image) {
-      console.error("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
       return;
     }
 
@@ -24,17 +27,29 @@ function AddNewWord() {
           image: image,
         }
       );
-      console.log(response.data);
-      setWord("");
-      setAnswer("");
-      setImage("");
+
+      if (response.status === 201) {
+        setWord("");
+        setAnswer("");
+        setImage("");
+        toast.success("Word added successfully!");
+
+        setTimeout(() => {
+          router.push("/");
+        }, 1500);
+      } else {
+        toast.error("Failed to add the word. Please try again.");
+      }
     } catch (error) {
+      toast.error("Error adding word. Please try again.");
       console.error("Error adding word:", error);
     }
   };
 
   return (
     <Grid>
+      <ToastContainer position="bottom-center" />
+
       <Grid
         sx={{
           display: "flex",
@@ -120,6 +135,7 @@ function AddNewWord() {
             }}
           />
           <Button
+            type="submit"
             variant="contained"
             onClick={handleAddWord}
             sx={{
@@ -136,7 +152,6 @@ function AddNewWord() {
             <Grid>
               <Button
                 variant="contained"
-                onClick={handleAddWord}
                 sx={{
                   borderRadius: "30px",
                   display: "flex",
