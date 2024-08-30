@@ -160,7 +160,7 @@ function HomePage() {
     if (result.isConfirmed) {
       try {
         const response = await axios.delete(
-          `${process.env.NEXT_PUBLIC_API_DELETE_URL}/${id}`
+          `${process.env.NEXT_PUBLIC_API_URL}/${id}`
         );
         if (response.status !== 200) {
           throw new Error("Failed to delete word");

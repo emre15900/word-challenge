@@ -17,7 +17,7 @@ function AddNewWord() {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_DELETE_URL}/words`,
+        `${process.env.NEXT_PUBLIC_API_URL}/words`,
         {
           word: word,
           answer: answer,

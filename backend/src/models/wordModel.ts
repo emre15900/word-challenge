@@ -12,6 +12,6 @@ const wordSchema: Schema = new Schema(
   }
 );
 
-const Word = mongoose.model<IWord>("Word", wordSchema);
+const Word = mongoose.model<IWord>("Word", wordSchema, "wordchallenges");
 
 export default Word;
